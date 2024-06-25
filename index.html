@@ -1,0 +1,231 @@
+
+
+<!-- Recode? Ambil Kode? Minimal Jangan Hapus cr-->
+<!-- Created By Jagad Renata -->
+<!-- wa: 0882006186099 -->
+<!-- ig: @rennnotsepuh -->
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Downloader | Xio Developer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    * {
+      font-family: Arial, sans-serif;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    *::selection {
+      color: skyblue;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: url(img/bg/anime3.jpg);
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    jagad-renata {
+      backdrop-filter: blur(2px);
+      overflow: hidden;
+      height: 450px;
+      margin: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid black;
+      border-radius: 50px;
+      box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
+
+    }
+
+    #container {
+      position: relative;
+      top: 0;
+      opacity: 1;
+      padding: 20px;
+      margin-top: 7px;
+      text-align: center;
+      transition: 2s all;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #container2 {
+      position: relative;
+      top: -400px;
+      opacity: 0;
+      transition: 4s all;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #container2 ul {
+      margin-left: 20px;
+    }
+
+    li {
+      list-style-type: decimal;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #000000;
+      border-radius: 4px;
+      background: transparent;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: deepskyblue;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #fff;
+      color: black ;
+    }
+
+    #howBtn {
+      background-color: transparent;
+      color: black;
+      font-size: 20;
+      font-weight: 200;
+    }
+
+    footer {
+      margin-bottom: 30px;
+    }
+
+    center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+    }
+    .wk 
+    {
+      color: deepskyblue;
+    }
+  </style>
+</head>
+
+<body> <jagad-renata>
+    <div id="container">
+      <h1>TikTok Video Downloader</h1>
+      <input type="text" id="tiktokUrl" placeholder="Enter TikTok video URL">
+      <button id="downloadBtn">Download Video</button>
+    </div>
+    <div id="container2">
+      <h2>
+        kamu gatau cara makkenya?
+      </h2>
+      <div>
+        <p>nih gw kasih tau ya!!</p>
+        <ul>
+          <li>lu copy link dari tiktok</li>
+          <li>paste di web ini</li>
+          <li>klik download</li>
+          <li>trus klik titik tiga di kanan bawah</li>
+          <li>pencet download</li>
+        </ul>
+        <p>mudah bukan?</p>
+      </div>
+    </div>
+    <footer>
+      <center>
+        <button id="howBtn">
+          <h6>how to use</h6>
+        </button>
+        <p>Created By Jagad Renata</p>
+        <p>
+          <a class="wk" href="https://renn.vercel.app">About Jagad Renata
+          </a>
+        </p>
+      </center>
+    </footer>
+  </jagad-renata>
+
+
+
+
+  <script>
+    let container = document.getElementById('container');
+    let containerTwo = document.getElementById('container2');
+
+    let howBtn = document.getElementById('howBtn');
+
+    function how() {
+      if (container.style.top === '500px') {
+        container.style.top = '0';
+        container2.style.top = '-400px';
+        container.style.opacity = '1';
+        container2.style.opacity = '0';
+        howBtn.innerHTML = '<h6>how to use?<h6>';
+      } else {
+        container.style.top = '500px';
+        container2.style.top = '-150px';
+        container.style.opacity = '0';
+        container2.style.opacity = '1';
+        howBtn.innerHTML = '<h6>close<h6>';
+      }
+    }
+
+    howBtn.addEventListener('click', how);
+
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      const urlInput = document.getElementById('tiktokUrl').value;
+      if (!urlInput) {
+        alert('Tolong masukkan url');
+        return;
+      }
+
+      const apiUrl = `https://aemt.me/download/tiktokdl?url=${encodeURIComponent(urlInput)}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status && data.result && data.result.video) {
+            const videoUrl = data.result.video;
+            const link = document.createElement('a');
+            link.href = videoUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            alert('Failed to retrieve the video URL.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('gagal mengambil video');
+        });
+    });
+  </script>
+
+
+</body>
+
+  </html>
